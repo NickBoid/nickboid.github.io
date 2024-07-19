@@ -3,56 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animación de Lluvia</title>
+    <title>Generador de Nombres Demoníacos y Angelicales</title>
     <style>
         body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1b1b1b;
+            color: #fff;
             margin: 0;
-            overflow: hidden;
-            background-color: #0e0e0e;
         }
-
-        .drop {
-            position: absolute;
+        .container {
+            text-align: center;
+        }
+        button {
+            background-color: #c8102e;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #a30c26;
+        }
+        .name {
             font-size: 24px;
-            color: #00f;
-            pointer-events: none;
-            animation: fall linear infinite;
-            opacity: 0.8;
+            margin-top: 20px;
         }
-
-        @keyframes fall {
-            from {
-                transform: translateY(-100px);
-            }
-            to {
-                transform: translateY(100vh);
-            }
+        .copy-info {
+            margin-top: 20px;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <h1>Generador de Nombres</h1>
+        <button onclick="generateDemonName()">Generar Nombre Demoníaco</button>
+        <button onclick="generateAngelName()">Generar Nombre Angelical</button>
+        <div class="name" id="generatedName"></div>
+        <button onclick="copyInvisibleSpace()">Copiar Espacio Invisible</button>
+        <div class="copy-info">Espacio invisible "ㅤ" para copiarlo manualmente.</div>
+    </div>
+
     <script>
-        // Configuración de la animación
-        const numDrops = 100; // Número de gotas
-        const dropEmoji = '💧'; // Emoji de gota de agua
+        const demonParts = [
+            'Zar', 'Zyx', 'Vra', 'Tha', 'Mal', 'Kra', 'Zyr', 'Vor', 'Ren', 'Xyl', 'Dra',
+            'rax', 'xor', 'orx', 'rax', 'az', 'rak', 'oth', 'en', 'ne'
+        ];
 
-        // Crear gotas de agua
-        for (let i = 0; i < numDrops; i++) {
-            const drop = document.createElement('div');
-            drop.className = 'drop';
-            drop.textContent = dropEmoji;
+        const angelParts = [
+            'Ael', 'Ser', 'Lio', 'Tha', 'Cel', 'Ely', 'Uri', 'Sel', 'Aur', 'Azi'
+        ];
 
-            // Configuración aleatoria para cada gota
-            const size = Math.random() * 30 + 10; // Tamaño aleatorio
-            const left = Math.random() * 100; // Posición horizontal aleatoria
-            const animationDuration = Math.random() * 2 + 2; // Duración aleatoria de la animación
+        function generateDemonName() {
+            let name = '';
+            while (name.length < 5) {
+                name += demonParts[Math.floor(Math.random() * demonParts.length)];
+            }
+            name = name.substring(0, 5).toUpperCase();
+            document.getElementById('generatedName').textContent = name;
+        }
 
-            drop.style.fontSize = `${size}px`;
-            drop.style.left = `${left}vw`;
-            drop.style.animationDuration = `${animationDuration}s`;
-            drop.style.animationDelay = `-${Math.random() * 5}s`;
+        function generateAngelName() {
+            let name = '';
+            while (name.length < 6) {
+                name += angelParts[Math.floor(Math.random() * angelParts.length)];
+            }
+            name = name.substring(0, 6).toUpperCase();
+            document.getElementById('generatedName').textContent = name;
+        }
 
-            document.body.appendChild(drop);
+        function copyInvisibleSpace() {
+            const invisibleSpace = 'ㅤ';
+            navigator.clipboard.writeText(invisibleSpace).then(() => {
+                alert('Espacio invisible "ㅤ" copiado al portapapeles.');
+            }).catch(err => {
+                console.error('Error al copiar el espacio invisible: ', err);
+            });
         }
     </script>
 </body>
