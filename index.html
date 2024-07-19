@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animación de Lluvia con Efecto de Vapor y Sonido</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #0e0e0e;
+        }
+
+        .drop {
+            position: absolute;
+            font-size: 24px;
+            color: #00f;
+            pointer-events: none;
+            animation: fall linear infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes fall {
+            from {
+                transform: translateY(-100px);
+            }
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        .vapor {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .vapor .cloud {
+            display: inline-block;
+            font-size: 80px; /* Tamaño grande para efecto de vapor */
+            color: rgba(255, 255, 255, 0.5); /* Color blanco con opacidad para difuminar */
+            position: absolute;
+            opacity: 0.6;
+            animation: vaporize 15s infinite, moveVapor 30s infinite linear;
+        }
+
+        @keyframes vaporize {
+            0%, 100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes moveVapor {
+            0% {
+                transform: translateX(-100vw);
+            }
+            100% {
+                transform: translateX(100vw);
+            }
+        }
+
+        /* Estilo para el iframe del video */
+        .video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .video-container iframe {
+            width: 0;
+            height: 0;
+            border: none;
+            opacity: 0; /* Oculta el iframe */
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Configuración de la animación
+        const numDrops = 100; // Número de gotas
+        const dropEmoji = '💧'; // Emoji de gota de agua
+        const vaporEmoji = '☁️'; // Emoji de vapor
+
+        // Crear gotas de agua
+        for (let i = 0; i < numDrops; i++) {
+            const drop = document.createElement('div');
+            drop.className = 'drop';
+            drop.textContent = dropEmoji;
+
+            // Configuración aleatoria para cada gota
+            const size = Math.random() * 30 + 10; // Tamaño aleatorio
+            const left = Math.random() * 100; // Posición horizontal aleatoria
+            const animationDuration = Math.random() * 2 + 2; // Duración aleatoria de la animación
+
+            drop.style.fontSize = `${size}px`;
+            drop.style.left = `${left}vw`;
+            drop.style.animationDuration = `${animationDuration}s`;
+            drop.style.animationDelay = `-${Math.random() * 5}s`;
+
+            document.body.appendChild(drop);
+        }
+
+        // Crear el efecto de vapor con 3 nubes
+        const vaporContainer = document.createElement('div');
+        vaporContainer.className = 'vapor';
+
+        for (let i = 0; i < 3; i++) {
+            const cloud = document.createElement('div');
+            cloud.className = 'cloud';
+            cloud.textContent = vaporEmoji;
+
+            // Configuración aleatoria para cada nube
+            const bottomOffset = i * 50; // Desplazamiento vertical para las nubes
+            cloud.style.bottom = `${-bottomOffset}px`;
+            cloud.style.left = `${Math.random() * 100}vw`;
+
+            vaporContainer.appendChild(cloud);
+        }
+
+        document.body.appendChild(vaporContainer);
+    </script>
+
+    <!-- Incluir el video de YouTube para el sonido de lluvia -->
+    <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/1qs82ByO53c?autoplay=1&loop=1&playlist=1qs82ByO53c" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+</body>
+</html>
