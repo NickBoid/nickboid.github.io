@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de Nombres Demoníacos y Angelicales</title>
+    <title>Generador de Nombres Insanos</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -36,57 +36,30 @@
             font-size: 24px;
             margin-top: 20px;
         }
-        .copy-info {
-            margin-top: 20px;
-            font-size: 16px;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Generador de Nombres</h1>
-        <button onclick="generateDemonName()">Generar Nombre Demoníaco</button>
-        <button onclick="generateAngelName()">Generar Nombre Angelical</button>
+        <h1>Generador de Nombres Insanos</h1>
+        <button onclick="generateInsaneName()">Generar Nombre Insano</button>
         <div class="name" id="generatedName"></div>
-        <button onclick="copyInvisibleSpace()">Copiar Espacio Invisible</button>
-        <div class="copy-info">Espacio invisible "ㅤ" para copiarlo manualmente.</div>
     </div>
 
     <script>
-        const demonParts = [
-            'Zar', 'Zyx', 'Vra', 'Tha', 'Mal', 'Kra', 'Zyr', 'Vor', 'Ren', 'Xyl', 'Dra',
-            'rax', 'xor', 'orx', 'rax', 'az', 'rak', 'oth', 'en', 'ne'
+        const prefixes = [
+            'Zyx', 'Vra', 'Tha', 'Kor', 'Xal', 'Nex', 'Sol', 'Max', 'Zar', 'Kra', 'Lil'
         ];
 
-        const angelParts = [
-            'Ael', 'Ser', 'Lio', 'Tha', 'Cel', 'Ely', 'Uri', 'Sel', 'Aur', 'Azi'
+        const postfixes = [
+            'en', 'or', 'ak', 'ix', 'ar', 'um', 'os', 'ir', 'on', 'us', 'it'
         ];
 
-        function generateDemonName() {
-            let name = '';
-            while (name.length < 5) {
-                name += demonParts[Math.floor(Math.random() * demonParts.length)];
-            }
-            name = name.substring(0, 5).toUpperCase();
-            document.getElementById('generatedName').textContent = name;
-        }
+        function generateInsaneName() {
+            const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+            const postfix = postfixes[Math.floor(Math.random() * postfixes.length)];
+            const name = prefix + postfix;
 
-        function generateAngelName() {
-            let name = '';
-            while (name.length < 6) {
-                name += angelParts[Math.floor(Math.random() * angelParts.length)];
-            }
-            name = name.substring(0, 6).toUpperCase();
             document.getElementById('generatedName').textContent = name;
-        }
-
-        function copyInvisibleSpace() {
-            const invisibleSpace = 'ㅤ';
-            navigator.clipboard.writeText(invisibleSpace).then(() => {
-                alert('Espacio invisible "ㅤ" copiado al portapapeles.');
-            }).catch(err => {
-                console.error('Error al copiar el espacio invisible: ', err);
-            });
         }
     </script>
 </body>
